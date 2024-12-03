@@ -61,3 +61,43 @@ const gomszab = new Player("gomszab");
 gomszab.play();
 console.log(gomszab);
 console.log(gomszab.getTierLevel());
+
+
+class Animal {
+    constructor(name, sound) {
+        this.name = name;
+        this.sound = sound;
+    }
+    makeSound() {
+        console.log(this.sound);
+    }
+}
+
+class Bird extends Animal {
+    constructor(name, sound) {
+        super(name, sound);
+    }
+    fly() {
+        console.log("I'm flying");
+    }
+}
+
+class Mammal extends Animal {
+    constructor(name, sound) {
+        super(name, sound);
+    }
+    walk() {
+        console.log("I'm walking");
+    }
+}
+
+const parrot = new Bird("Parrot", "Chirp chirp");
+const dog = new Mammal("Dog", "Woof woof");
+
+console.log(parrot);
+parrot.makeSound();
+parrot.fly();
+
+console.log(dog);
+dog.makeSound();
+dog.walk();
