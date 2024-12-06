@@ -6,6 +6,12 @@ class Factory {
     }
     addCompanion(companion) {
         this.companionList.push(companion);
+        createRow(companion);
+        const selector = document.getElementById("companionlist");
+        const option = document.createElement("option");
+        option.value = companion.id;
+        option.innerHTML = companion.lastname + " " + companion.firstname;
+        selector.appendChild(option);
     }
     newId(){
         return this.companionList.length

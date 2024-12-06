@@ -9,7 +9,11 @@ function createRow(companion){
     const tableRow = document.createElement('tr');
     tbody.appendChild(tableRow);
 
-   // TODO 7
+
+    const name = createCell(tableRow);
+    const area = createCell(tableRow);
+    name.innerHTML = companion.lastname + " " + companion.firstname;
+    area.innerHTML = companion.area;
 
     const action = createCell(tableRow)
     const button = document.createElement('button');
@@ -96,4 +100,5 @@ function addProductForm(form){ // TODO
 
     const companion = factory.getCompanion(companionId);
     companion.addProduct(product);
+    form.reset();
 }

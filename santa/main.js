@@ -32,12 +32,13 @@ document.getElementById('companion').addEventListener('submit',function(e){
     e.preventDefault();
     const form =  e.currentTarget
     addCompanion(form);
+    form.reset();
 });
 
 document.getElementById('product').addEventListener('submit',function(e){
     e.preventDefault();
     const form = e.currentTarget;
-    addProductForm(form)
+    addProductForm(form);
 });
 
 /**
@@ -51,7 +52,7 @@ function initTable(){
         for (const product of companion.products) {
             newCompanion.addProduct(product);
         }
-        factory.addCompanion(companion);
+        factory.addCompanion(newCompanion);
     }
 }
 
