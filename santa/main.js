@@ -46,7 +46,6 @@ document.getElementById('product').addEventListener('submit',function(e){
  */
 function initTable(){
 
-    // TODO 6
     for (const companion of companionList) {
         const newCompanion = new Companion(factory.newId(), companion.firstName, companion.lastName, companion.area);
         for (const product of companion.products) {
@@ -68,5 +67,6 @@ initTable()
 function checkEventListener(e){
     const row = e.currentTarget.parentElement.parentElement;
     const companionId = row.id;
-    // TODO 10
+    const companion = factory.getCompanion(companionId);
+    refreshProductList(companion);
 }
