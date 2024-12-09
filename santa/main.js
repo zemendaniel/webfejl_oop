@@ -27,6 +27,8 @@ const companionList = [
     },
 ]
 const factory = new Factory();
+factory.addArea("plastic");
+factory.addArea("paper");
 
 document.getElementById('companion').addEventListener('submit',function(e){
     e.preventDefault();
@@ -41,6 +43,13 @@ document.getElementById('product').addEventListener('submit',function(e){
     addProductForm(form);
 });
 
+document.getElementById('area').addEventListener('submit',function(e){
+    e.preventDefault();
+    const form = e.currentTarget;
+    factory.addArea(form.areaName.value);
+    form.reset();
+});
+
 /**
  * table render
  */
@@ -49,7 +58,7 @@ function initTable(){
     for (const companion of companionList) {
         const newCompanion = new Companion(factory.newId(), companion.firstName, companion.lastName, companion.area);
         for (const product of companion.products) {
-            newCompanion.addProduct(product);
+            newCompanion.addProduct(product, true);
         }
         factory.addCompanion(newCompanion);
     }

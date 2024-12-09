@@ -13,7 +13,7 @@ function createRow(companion){
 
     const name = createCell(tableRow);
     const area = createCell(tableRow);
-    name.innerHTML = companion.lastname + " " + companion.firstname;
+    name.innerHTML = companion.fullName;
     area.innerHTML = companion.area;
 
     const action = createCell(tableRow)
@@ -62,6 +62,7 @@ function refreshProductList(companion){
 
     const companionName = document.getElementById('companion_name');
     companionName.style.display = 'block';
+    companionName.innerHTML = companion.fullName;
     const productTable = document.getElementById('products');
     productTable.style.display = 'table';
     const productTableBody = productTable.querySelector('tbody')

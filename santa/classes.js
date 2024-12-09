@@ -2,11 +2,23 @@
 class Factory {
     constructor() {
         this.companionList = [];
+        this.areaList = [];
+    }
+    addArea(area) {
+        if (!area || this.areaList.includes(area)) {
+            return;
+        }
+        this.areaList.push(area);
+        const selector = document.getElementById('carea');
+        const option = document.createElement('option');
+        option.value = area;
+        option.innerHTML = area;
+        selector.appendChild(option);
     }
     addCompanion(companion) {
         this.companionList.push(companion);
         createRow(companion);
-        appendToSelector(companion.id, companion.lastname + " " + companion.firstname);
+        appendToSelector(companion.id, companion.fullName);
     }
     newId(){
         return this.companionList.length
@@ -24,7 +36,13 @@ class Companion {
         this.area = area;
         this.products = [];
     }
-    addProduct(product) {
+    addProduct(product, addOnLoad=false) {
         this.products.push(product);
+        if (!addOnLoad) {
+            refreshProductList(this);
+        }
+    }
+    get fullName() {
+        return this.lastname + " " + this.firstname;
     }
 }
