@@ -13,25 +13,29 @@ class ArrayList {
     }
     Add(item) {
         this.#items[this.#count] = item;
+        const i = this.Count;
+        Object.defineProperty(this, i, {get: () => this.#items[i],
+            set: (value) => this.#items[i] = value});
         this.#count++;
     }
     Clear() {
         this.#count = 0;
         this.#items = {};
     }
-    // get Items() {
-    //     return this.#items;
-    // }
 }
 
-// const arr = new ArrayList();
-// arr.Add("hello");
-// arr.Add("world");
-// arr.Add("!");
-// arr.Add("!");
-// arr.Add("!");
-// console.log(arr.Items);
+const alma = {};
+Object.defineProperty(alma, "nev", {value : "Cirmi", writable : true});
+alma.nev = "asd";
+// console.log(alma);
+// console.log(alma.nev);
+
+const arr = new ArrayList();
+arr.Add("hello");
+arr.Add("Cirmi");
+arr[1] = "Kossuth Lajos";
+console.log(arr[0]);
+console.log(arr[1]);
 // console.log(arr.Count)
 // arr.Clear();
-// console.log(arr.Items);
-// console.log(arr.Count);
+// arr.Add({"nev" : "Cirmi"})
