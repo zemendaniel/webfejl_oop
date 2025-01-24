@@ -1,15 +1,21 @@
 class ArrayList {
     #count
     #items
+    #arrayTable
+    // /**
+    //  * @type {number}
+    //  * */
+    // get Count() {
+    //     return this.#count;
+    // }
     /**
-     * @type {number}
-     * */
-    get Count() {
-        return this.#count;
-    }
-    constructor() {
+     * @param {TableHTMLArray} arrayTable
+     **/
+    constructor(arrayTable=null) {
         this.#count = 0;
         this.#items = {};
+        Object.defineProperty(this, "Count", {get: () => this.#count});
+        this.#arrayTable = arrayTable;
     }
     Add(item) {
         this.#items[this.#count] = item;
@@ -17,10 +23,13 @@ class ArrayList {
         Object.defineProperty(this, i, {get: () => this.#items[i],
             set: (value) => this.#items[i] = value, enumerable: true, configurable: true});
         this.#count++;
+        if (this.#arrayTable) {
+            this.#arrayTable.addPersonRow(item);
+        }
     }
     Clear() {
         this.#count = 0;
-        for (const i in this.#items) {
+        for (const i in this) {
             delete this.#items[i];
             delete this[i];
         }
@@ -58,3 +67,47 @@ arr2.Add(2);
 arr2.Add(3);
 console.log(arr2.Contains(5));
 console.log(arr2.Contains(2));
+
+
+class TableHTMLArray extends HTMLElement {
+    #tbody
+    constructor() {
+        super();
+
+    }
+    connectedCallback() {
+        const table = document.createElement("table");
+        this.#tbody = document.createElement("tbody");
+        const thead = document.createElement("thead");
+        table.appendChild(thead);
+        table.appendChild(this.#tbody);
+        this.appendChild(table);
+    }
+    /**
+     *
+     * @param {{nev: string, eletkor: number}} person An object containing the person's name and age
+     */
+    addPersonRow(person) {
+        const row = document.createElement("tr");
+        for (const key in person) {
+            const cell = document.createElement("td");
+            cell.innerHTML = person[key];
+            row.appendChild(cell);
+        }
+        this.#tbody.appendChild(row);
+    }
+}
+
+customElements.define("array-table", TableHTMLArray);
+const arrayTable = new TableHTMLArray();
+document.body.appendChild(arrayTable);
+
+const arr3 = new ArrayList(arrayTable);
+
+arrayTable.addPersonRow({nev: "Cirmi", eletkor: 30});
+arrayTable.addPersonRow({nev: "Cirmi", eletkor: 30});
+arrayTable.addPersonRow({nev: "Cirmi", eletkor: 30});
+
+arr3.Add({nev: "Cicvarek", eletkor: 1});
+arr3.Add({nev: "Cicvarek", eletkor: 1});
+arr3.Add({nev: "Cicvarek", eletkor: 1});
