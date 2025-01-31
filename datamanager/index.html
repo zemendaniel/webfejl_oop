@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <form>
+        <label for="name">Search by name...</label>
+        <input type="text" id="name" oninput="dataManager.filterName(this.value)">
+        <label for="age">Search by age...</label>
+        <input type="number" id="age" oninput="dataManager.filterAge(this.value)">
+    </form>
+    <script src="main.js"></script>
+</body>
+</html>
