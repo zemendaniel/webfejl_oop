@@ -73,22 +73,24 @@ class DataTable {
     constructor(dataManager) {
         const table = document.createElement('table')
         document.body.appendChild(table)
-        const tbody = document.createElement('tbody')
-        table.appendChild(tbody)
+        this.tbody = document.createElement('tbody')
+        table.appendChild(this.tbody)
 
         dataManager.setUpdateCallback(persons => {
-            tbody.innerHTML = ''
-            for (const person of persons) {
-                const tr = document.createElement('tr')
-                for (const key in person) {
-                    const td = document.createElement('td')
-                    td.innerHTML = person[key]
-                    tr.appendChild(td)
-                    tbody.appendChild(tr)
-                }
-            }
+            this.#renderTable(persons)
         })
-
+    }
+    #renderTable(persons) {
+        this.tbody.innerHTML = ''
+        for (const person of persons) {
+            const tr = document.createElement('tr')
+            for (const key in person) {
+                const td = document.createElement('td')
+                td.innerHTML = person[key]
+                tr.appendChild(td)
+                this.tbody.appendChild(tr)
+            }
+        }
     }
 }
 
