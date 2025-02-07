@@ -37,28 +37,10 @@ class DataManager {
         this.#array.push(person)
         this.#updateCallback(this.#array)
     }
-    /**
-     * @param {string} name
-     * */
-    filterName(name) {
+    filter(filterCallback) {
         const results = []
         for (const person of this.#array) {
-            if (person.nev.toLowerCase().includes(name.toLowerCase())) {
-                results.push(person)
-            }
-        }
-        this.#updateCallback(results)
-    }
-    /**
-     * @param {number} age
-     * */
-    filterAge(age) {
-        if (!age) {
-            return this.#updateCallback(this.#array)
-        }
-        const results = []
-        for (const person of this.#array) {
-            if (person.eletkor === Number(age)) {
+            if (filterCallback(person)) {
                 results.push(person)
             }
         }
@@ -96,3 +78,20 @@ class DataTable {
 
 const dataManager = new DataManager([{nev: 'John', eletkor: 30}, {nev: 'Jane', eletkor: 25}, {nev: 'Bob', eletkor: 40}])
 const dataTable = new DataTable(dataManager)
+
+const input = document.createElement('input')
+document.body.appendChild(input)
+input.type = "file"
+input.addEventListener("change", (e) => {
+    const file = e.target.files[0]
+    const reader = new FileReader()
+    reader.readAsText(file)
+    reader.onload = () => {
+        const fileContent = reader.result;
+        const stringArray = fileContent.split("\n")
+        stringArray.forEach(line => {
+            const tmp = line.split(";")
+            dataManager.add({nev: tmp[0], eletkor: Number(tmp[1])})
+        })
+    }
+})

@@ -7,9 +7,9 @@
 <body>
     <form>
         <label for="name">Search by name...</label>
-        <input type="text" id="name" oninput="dataManager.filterName(this.value)">
+        <input type="text" id="name" oninput="dataManager.filter(person => person.nev.toLowerCase().includes(this.value.toLowerCase()))">
         <label for="age">Search by age...</label>
-        <input type="number" id="age" oninput="dataManager.filterAge(this.value)">
+        <input type="number" id="age" oninput="dataManager.filter(person => person.eletkor === Number(this.value) || !this.value)">
     </form>
     <script src="main.js"></script>
 </body>
