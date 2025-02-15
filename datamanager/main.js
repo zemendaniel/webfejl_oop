@@ -46,6 +46,12 @@ class DataManager {
         }
         this.#updateCallback(results)
     }
+    order(orderCallback) {
+        const results = [...this.#array];
+        results.sort(orderCallback);
+        this.#updateCallback(results);
+    }
+
 }
 
 class DataTable {
@@ -57,6 +63,21 @@ class DataTable {
         document.body.appendChild(table)
         this.tbody = document.createElement('tbody')
         table.appendChild(this.tbody)
+        this.thead = document.createElement('thead')
+        table.appendChild(this.thead)
+
+        const th = document.createElement('th')
+        th.innerHTML = 'Név'
+        th.addEventListener('click', () => {
+            dataManager.order((a, b) => a.nev.localeCompare(b.nev));
+        })
+        this.thead.appendChild(th)
+        const th2 = document.createElement('th')
+        th2.innerHTML = 'Életkor'
+        th2.addEventListener('click', () => {
+            dataManager.order((a, b) => a.eletkor - b.eletkor);
+        })
+        this.thead.appendChild(th2)
 
         dataManager.setUpdateCallback(persons => {
             this.#renderTable(persons)
